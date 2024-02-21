@@ -1,0 +1,14 @@
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\bin\Debug\Tarea2-E3.exe.config
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\bin\Debug\Tarea2-E3.exe
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\bin\Debug\Tarea2-E3.pdb
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.csproj.AssemblyReference.cache
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.csproj.CoreCompileInputs.cache
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.exe
+G:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.pdb
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\bin\Debug\Tarea2-E3.exe.config
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\bin\Debug\Tarea2-E3.exe
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\bin\Debug\Tarea2-E3.pdb
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.csproj.AssemblyReference.cache
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.csproj.CoreCompileInputs.cache
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.exe
+E:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea2\Tarea2-E3\obj\Debug\Tarea2-E3.pdb
