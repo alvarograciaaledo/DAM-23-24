@@ -1,0 +1,7 @@
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\bin\Debug\Tarea3-E4.exe.config
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\bin\Debug\Tarea3-E4.exe
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\bin\Debug\Tarea3-E4.pdb
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\obj\Debug\Tarea3-E4.csproj.AssemblyReference.cache
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\obj\Debug\Tarea3-E4.csproj.CoreCompileInputs.cache
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\obj\Debug\Tarea3-E4.exe
+F:\INSTITUTO\DAM_23-24\PROGRAMACIÓN\UT6\TAREAS\Tarea3\Tarea3-E4\obj\Debug\Tarea3-E4.pdb
