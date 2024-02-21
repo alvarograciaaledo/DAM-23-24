@@ -1,0 +1,63 @@
+﻿BB.DD
+TAREA 2.5
+  
+
+Álvaro Gracia Aledo
+11/01/2024
+1º DAM
+________________
+A partir del documento SQL aportado UT2_Act2_Tablas.sql realiza las siguientes consultas. 
+
+1. A partir de la tabla EMPLE, visualiza el sueldo mayor de cada departamento y su número de departamento. 
+
+
+* SELECT MAX(SALARIO) AS "SALARIO MAYOR", DEPT_NO DEPARTAMENTO FROM EMPLE GROUP BY DEPT_NO;✔️
+
+
+2. A partir de la tabla EMPLE, visualiza el total de salarios por departamento y el número de departamento. 
+
+
+* SELECT SUM(SALARIO) AS "SALARIO TOTAL", DEPT_NO DEPARTAMENTO FROM EMPLE GROUP BY DEPT_NO;✔️
+
+
+3. A partir de la tabla EMPLE, visualiza el mayor sueldo en cada oficio. 
+
+
+* SELECT MAX(SALARIO) AS "SALARIO MAYOR", OFICIO FROM EMPLE GROUP BY OFICIO;✔️
+
+
+4. A partir de la tabla EMPLE, visualiza el número de empleados de cada departamento y el número de departamento. 
+
+
+* SELECT COUNT(EMP_NO) AS "NUMERO DE EMPLEADOS", DEPT_NO DEPARTAMENTO FROM EMPLE GROUP BY DEPT_NO;✔️
+
+
+5. A partir de la tabla EMPLE, visualiza el número de empleados de oficio EMPLEADO de cada departamento, y el número de departamento. 
+
+
+* SELECT DEPT_NO DEPARTAMENTO, COUNT(*) AS "NUMERO DE EMPLEADOS" FROM EMPLE WHERE OFICIO = 'EMPLEADO' GROUP BY DEPT_NO;✔️
+
+
+6. A partir de la tabla EMPLE, visualiza el total de salarios por departamento y el número de departamento de los ANALISTAS. 
+
+
+* SELECT DEPT_NO, SUM(SALARIO) AS 'TOTAL SALARIO' FROM EMPLE WHERE OFICIO = 'ANALISTA' GROUP BY DEPT_NO;✔️
+
+7. A partir de la tabla EMPLE, visualiza el número de empleados de cada departamento únicamente de aquellos departamentos que superan los 3 empleados. 
+
+
+* SELECT DEPT_NO, COUNT(*) AS 'NUMERO DE EMPLEADOS' FROM EMPLE GROUP BY DEPT_NO HAVING COUNT(*) > 3;✔️
+________________
+
+
+
+
+8. Busca los departamentos que tienen más de dos personas trabajando en la misma profesión. 
+
+
+* 
+
+9. Busca los departamentos (número de departamento) que superan los 1500€ de sueldo medio de ANALISTAS
+
+
+*

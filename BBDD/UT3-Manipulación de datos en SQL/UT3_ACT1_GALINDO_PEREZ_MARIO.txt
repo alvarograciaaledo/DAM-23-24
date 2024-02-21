@@ -1,0 +1,232 @@
+﻿1. Modifica el precio de compra a la mitad del precio medio de alquiler de las películas que tienen como director Percy Adlon. (7 filas actualizadas) 
+UPDATE PELICULAS 
+SET PRECIO_COMPRA = (SELECT AVG(PRECIO_ALQUILER)/2 FROM PELICULAS
+                     WHERE DIRECTOR = 'Percy Adlon')
+;
+
+
+2. Reduce el precio de alquiler a la mitad, a todas las películas que han sido alquiladas más de 5 veces. (0 filas actualizadas)
+UPDATE PELICULAS
+SET PRECIO_ALQUILER = PRECIO_ALQUILER/2
+WHERE COD_PELI = (SELECT COD_PELI FROM PRESTAMOS
+                  GROUP BY COD_PELI
+                  HAVING COUNT(*) >5);
+
+
+
+
+3. Elimina las películas que no se hayan alquilado nunca. (1 fila borrada) 
+DELETE FROM ACTORES
+WHERE COD_PELI = (
+SELECT PELICULAS.COD_PELI FROM PELICULAS 
+LEFT JOIN PRESTAMOS ON PRESTAMOS.COD_PELI = PELICULAS.COD_PELI
+WHERE PELICULAS.COD_PELI NOT IN (SELECT PRESTAMOS.COD_PELI FROM PRESTAMOS)
+);
+
+
+
+
+DELETE FROM PELICULAS
+WHERE COD_PELI NOT IN(SELECT COD_PELI FROM PRESTAMOS);
+
+
+4. Inserta una película con los siguientes datos: Código de película: ABA04, nombre: La bella y la Bestia, director: Gary Trousdale, tipo película: musical, fecha de estreno: 1991, UT3– Manipulación de datos en SQL Bases de Datos autorizada: sí. El precio medio de compra de los dramas en el precio compra y precio medio de alquiler de los dramas en precio alquiler. (1 fila insertada) 
+
+
+INSERT INTO PELICULAS
+VALUES ('ABA04', 'La bella y la Bestia', 'Gary Trousdale',TO_DATE('1991/01/01','YYYY/MM/DD'),'musical',(SELECT AVG(PRECIO_ALQUILER) FROM PELICULAS),(SELECT AVG(PRECIO_COMPRA) FROM PELICULAS),'si');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Borra los actores que actúan en películas alquiladas por los socios dados de alta (fecha de alta) antes de 2000. (11 filas borradas).
+
+
+
+
+DELETE FROM ACTORES
+WHERE COD_PELI IN (SELECT COD_PELI FROM PRESTAMOS WHERE COD_SOCIO IN ( SELECT COD_SOCIO FROM SOCIOS WHERE FECHA_ALTA < TO_DATE('2000/01/01','YYYY/MM/DD')));
+
+
+
+
+6. Desde las tablas iniciales. Da de alta un préstamo, con fecha de hoy de la película que más actores principales tiene, por el socio AFR-33. (3 filas insertadas) 
+
+
+INSERT INTO PRESTAMOS (COD_SOCIO, COD_PELI, FECHA_ALQUILER)
+SELECT 'AFR-33', COD_PELI, SYSDATE
+FROM ACTORES
+GROUP BY COD_PELI
+HAVING COUNT(*) = (SELECT MAX(COUNT(*))
+                   FROM ACTORES
+                   GROUP BY COD_PELI);
+
+
+
+
+
+
+7. Desde las tablas iniciales. Elimina los socios que no tienen préstamos de películas en los dos últimos años. Analiza el resultado con la sentencia SQL que has desarrollado e indica cuál podría ser la solución, a tu criterio. (10 filas borradas)  
+
+
+DELETE FROM prestamos
+WHERE cod_socio IN (
+    SELECT cod_socio
+    FROM socios
+    WHERE cod_socio NOT IN (
+        SELECT DISTINCT p.cod_socio
+        FROM prestamos p
+        WHERE p.fecha_alquiler >= ADD_MONTHS(SYSDATE, -24)
+    )
+);
+
+
+
+
+
+
+DELETE FROM socios
+WHERE cod_socio NOT IN (
+    SELECT DISTINCT p.cod_socio
+    FROM prestamos p
+    WHERE p.fecha_alquiler >= ADD_MONTHS(SYSDATE, -24)
+);
+
+
+
+
+
+
+8. Desde las tablas iniciales. Desde las tablas iniciales. Muestra las películas (título y director) cuyo precio de compra no supere el precio de compra de todas y cada una de las películas de género comedia. (2 filas borradas)  
+
+
+DELETE FROM actores WHERE cod_peli IN (
+    SELECT cod_peli FROM peliculas p1
+    WHERE p1.precio_compra <= ALL (
+        SELECT p2.precio_compra
+        FROM peliculas p2
+        WHERE p2.tipo_peli = 'Comedia'
+    )
+);
+
+
+DELETE FROM prestamos
+WHERE cod_peli IN (
+    SELECT cod_peli
+    FROM peliculas p1
+    WHERE p1.precio_compra <= ALL (
+        SELECT p2.precio_compra
+        FROM peliculas p2
+        WHERE p2.tipo_peli = 'Comedia'
+    )
+);
+
+
+DELETE FROM peliculas
+WHERE precio_compra <= ALL (
+    SELECT precio_compra
+    FROM peliculas
+    WHERE tipo_peli = 'Comedia'
+);
+
+
+
+
+
+
+9. Desde las tablas iniciales. Actualiza el precio de alquiler al precio de compra de las películas que más caras (precio de compra) y que empiecen por la letra e. 
+UPDATE PELICULAS
+SET PRECIO_ALQUILER = (SELECT MAX(PRECIO_COMPRA) FROM PELICULAS WHERE TITULO LIKE 'E%')
+
+
+
+
+10. Crear una tabla PELIS con los siguientes campos: CODIGO, TITULO, NOMDIR, APELDIR, ESTRENO, TIPO. CREATE TABLE PELIS ( CODIGO VARCHAR2(5), TITULO VARCHAR2(30) NOT NULL, NOMDIR VARCHAR2(20) NOT NULL, APELDIR VARCHAR2(20) NOT NULL, ESTRENO DATE, TIPO VARCHAR2(10), CONSTRAINT PELI_COD_PK PRIMARY KEY (CODIGO) ); Insertar las películas de la tabla PELICULAS que más se han alquilado en la tabla PELIS, donde el CODIGO en COD_PELI, NOMDIR es el nombre del director, APELDIR es el apellido, ESTRENO es el año de estreno y el resto de campos coinciden con la tabla PELICULAS. (2 filas insertadas) 
+
+
+
+
+INSERT INTO PELIS(CODIGO,TITULO,NOMDIR,APELDIR,ESTRENO,TIPO)
+SELECT COD_PELI,TITULO,SUBSTR(DIRECTOR,1,INSTR(DIRECTOR,' ') -1),SUBSTR(DIRECTOR,INSTR(DIRECTOR,' ') +1),FECHA_ESTRENO,TIPO_PELI
+FROM PELICULAS
+WHERE COD_PELI IN(
+SELECT COD_PELI FROM PRESTAMOS
+GROUP BY COD_PELI
+HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM PRESTAMOS GROUP BY COD_PELI)
+);
+
+
+
+
+
+
+11. Reduce el precio de compra a la mitad y el precio de alquiler a la mitad del precio de compra de la película AAA00 a los registros que contengan películas que se han alquilado menos de 2 veces. (3 filas actualizadas) 
+
+
+UPDATE PELICULAS
+SET PRECIO_COMPRA = (SELECT PRECIO_COMPRA/2 FROM PELICULAS WHERE COD_PELI = 'AAA00'),PRECIO_ALQUILER = (SELECT PRECIO_COMPRA/2 FROM PELICULAS WHERE COD_PELI = 'AAA00')
+WHERE COD_PELI IN ( SELECT COD_PELI FROM PRESTAMOS
+GROUP BY COD_PELI
+HAVING COUNT(*) <= 2)
+
+
+
+
+
+
+
+
+
+
+
+
+12. Desde las tablas iniciales. Elimina las películas de comedia para todos los públicos que no tengan actor principal. (0 filas borradas) 
+
+
+DELETE FROM PELICULAS
+WHERE TIPO_PELI = 'Comedia' AND COD_PELI NOT IN (SELECT COD_PELI FROM ACTORES);
+
+
+
+
+
+
+13. Modifica el campo autorizadaTP a ‘no’ a aquellas películas que pertenecen al género que tiene mayor número de películas. (3 filas actualizados) 
+
+
+UPDATE PELICULAS
+SET AUTORIZADATP = 'no'
+WHERE TIPO_PELI =( SELECT TIPO_PELI FROM PELICULAS
+GROUP BY TIPO_PELI
+HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM PELICULAS GROUP BY TIPO_PELI)
+);
+
+
+14. Desde las tablas iniciales. Inserta un préstamo al socio o socios que han gastado más cantidad de dinero en alquileres de películas en ACCION. (4 filas insertadas) 
+INSERT INTO PRESTAMOS (COD_SOCIO, COD_PELI, FECHA_ALQUILER)
+SELECT COD_SOCIO, COD_PELI, SYSDATE
+FROM PRESTAMOS
+WHERE COD_PELI IN (SELECT COD_PELI FROM PELICULAS
+WHERE TIPO_PELI = 'AcciÃ³n'
+GROUP BY COD_PELI
+HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM PELICULAS
+                   GROUP BY COD_PELI)
+);
+
+
+15. Desde las tablas iniciales. Borrar las películas más antiguas con menos de dos actores principales. Comenta el resultado.
+DELETE FROM PELICULAS
+WHERE FECHA_ESTRENO = (SELECT MIN(FECHA_ESTRENO) FROM PELICULAS) 
+AND COD_PELI IN (SELECT COD_PELI FROM ACTORES
+                 GROUP BY COD_PELI
+                 HAVING COUNT(*) < 2);
